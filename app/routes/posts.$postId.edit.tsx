@@ -2,8 +2,14 @@ import { ActionFunctionArgs, LoaderFunctionArgs, json, redirect } from '@remix-r
 import { Button, Input, Textarea } from '@nextui-org/react'
 import { Form, useFetcher, useLoaderData, useNavigation } from '@remix-run/react'
 import { prisma } from '~/prisma.server'
+import { auth } from '~/session.server'
 
 export async function loader(c: LoaderFunctionArgs) {
+  const user = await auth(c.request)
+  if (!user.username) {
+    return redirect('/signin')
+  }
+
   const postId = c.params.postId as string
   const post = await prisma.post.findUnique({
     where: {
