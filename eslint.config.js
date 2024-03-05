@@ -9,5 +9,6 @@ export default await antfu({
     'unused-imports/no-unused-vars': 'warn',
     'ts/consistent-type-imports': 'off',
     'no-alert': 'off',
+    'react-refresh/only-export-components': 'off',
   },
 })
